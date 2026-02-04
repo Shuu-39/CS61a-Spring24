@@ -102,4 +102,4 @@ def hailstone(n):
             steps += 1
     print(1)
     return steps+1 
-"""this is for test"""
+"""this is for test,now i will delete it for Git practice"""
