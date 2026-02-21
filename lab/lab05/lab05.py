@@ -79,6 +79,12 @@ def count_occurrences(t, n, x):
     2
     """
     "*** YOUR CODE HERE ***"
+    total = 0
+    for i in range(n):
+        if next(t) == x:
+            total += 1
+    return total
+
 
 
 def repeated(t, k):
@@ -102,6 +108,18 @@ def repeated(t, k):
     """
     assert k > 1
     "*** YOUR CODE HERE ***"
+    current = next(t)
+    current_count = 1
+    while True:
+        next_val = next(t)
+        if next_val == current:
+            current_count += 1
+            if current_count == k:
+                return current
+        else:
+            current_count = 1
+            current = next_val
+
 
 
 def sprout_leaves(t, leaves):
@@ -138,7 +156,12 @@ def sprout_leaves(t, leaves):
           2
     """
     "*** YOUR CODE HERE ***"
-
+    if is_leaf(t):
+        new_branches = [tree(leaf) for leaf in leaves]
+        return tree(label(t),new_branches)
+    else:
+        new_branches = [sprout_leaves(b,leaves) for b in branches(t)]
+        return tree(label(t),new_branches)
 
 def partial_reverse(s, start):
     """Reverse part of a list in-place, starting with start up to the end of
@@ -153,7 +176,16 @@ def partial_reverse(s, start):
     [1, 2, 7, 6, 5, 3, 4]
     """
     "*** YOUR CODE HERE ***"
-
+    start_index = start
+    end_index = len(s) - 1
+    axis = (start_index + end_index)/2
+    distance = axis - start_index
+    while distance > 0:
+        former_index = int(axis - distance)
+        latter_index = int(axis + distance)
+        s[former_index], s[latter_index] = s[latter_index], s[former_index]
+        distance -= 1
+        
 
 
 # Tree Data Abstraction
