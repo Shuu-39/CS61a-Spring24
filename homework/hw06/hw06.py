@@ -4,7 +4,7 @@ def midsem_survey(p):
     """
     You do not need to understand this code.
     >>> midsem_survey(passphrase)
-    '3d9f1125b109b311959d068240016badb874603eab75302a445e1a50'
+    '9c557774afa3f7b5670f10a5ca54be0eedb8384a780375daa0340b45'
     """
     import hashlib
     return hashlib.sha224(p.encode('utf-8')).hexdigest()
@@ -103,6 +103,31 @@ def store_digits(n):
     >>> print("Do not use str or reversed!") if any([r in cleaned for r in ["str", "reversed"]]) else None
     """
     "*** YOUR CODE HERE ***"
+    assert n > 0, "Input must be a positive number!"
+    def build_Link_digits(n):
+        if n <10 : 
+            return Link(n)
+        else:
+            return Link(get_highest_digit(n), build_Link_digits(get_rest_digits(n)))
+        
+    def get_highest_digit(n):
+        # div = 1
+        # while n//div >= 10:
+        #     div *= 10
+        # return n//div
+        return n_processed(n)[0]
+    def get_rest_digits(n):
+        # div = 1
+        # while n//div >= 10:
+        #     div *= 10
+        # return n%div
+        return n_processed(n)[1]
+    def n_processed(n):
+        div = 1
+        while n//div >= 10:
+            div *= 10
+        return [n//div, n%div]
+    return build_Link_digits(n)
 
 
 def deep_map_mut(func, lnk):
@@ -125,7 +150,13 @@ def deep_map_mut(func, lnk):
     <9 <16> 25 36>
     """
     "*** YOUR CODE HERE ***"
-
+    if lnk is Link.empty:
+        return 
+    if isinstance(lnk.first, Link):
+        deep_map_mut(func, lnk.first)
+    else:
+        lnk.first = func(lnk.first)
+    deep_map_mut(func, lnk.rest)
 
 def two_list(vals, counts):
     """
@@ -146,6 +177,10 @@ def two_list(vals, counts):
     Link(1, Link(1, Link(3, Link(3, Link(2)))))
     """
     "*** YOUR CODE HERE ***"
+    temp = ''
+    for i in range(len(vals)):
+        temp += ( str(vals[i]) * int(counts[i]) )
+    return store_digits(int(temp))
 
 
 class Link:
