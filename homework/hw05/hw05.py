@@ -97,8 +97,8 @@ def yield_paths(t, value):
     if label(t) == value:
         yield [label(t)]
     for b in branches(t):
-        for i in b:
-            yield [i]+yield_paths(b,value)
+        for path in yield_paths(b, value):
+            yield [label(t)] + path
 
 
 
