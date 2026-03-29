@@ -81,7 +81,17 @@ def eval_and(expressions):
     True
     """
     "*** YOUR CODE HERE ***"
-    
+    if expressions == nil:
+        return scheme_t
+    current = expressions
+    last_val =None
+    while current != nil:
+        val = calc_eval(current.first)
+        if val is scheme_f:
+            return scheme_f
+        last_val = val
+        current = current.rest
+    return last_val
 
 bindings = {}
 
